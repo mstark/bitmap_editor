@@ -39,7 +39,7 @@ class Command
     color = m && m[4] ? m[4] : ""
 
     if RANGE.include?(x) && RANGE.include?(y) && COLOR.include?(color)
-      @result = { command: :color, x: x, y: x, color: color }
+      @result = { command: :color, x: x, y: y, color: color }
       true
     else
       @result = { errors: "" }
