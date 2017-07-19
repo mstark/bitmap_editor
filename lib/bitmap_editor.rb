@@ -1,3 +1,6 @@
+require_relative "command"
+require_relative "bitmap"
+
 class BitmapEditor
 
   def run(file)
