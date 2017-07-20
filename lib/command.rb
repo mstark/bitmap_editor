@@ -9,6 +9,10 @@ class Command
     @result = nil
   end
 
+  def unknown?
+    !command.start_with?("I", "C", "L", "A", "V", "H", "S")
+  end
+
   # I M N
   def create?
     m = /\A(I)\s{1}(\d{1,3})\s{1}(\d{1,3})\z/.match(command)
@@ -87,7 +91,7 @@ class Command
     command.strip == "S"
   end
 
-  def parameters
+  def params
     @result
   end
 end
