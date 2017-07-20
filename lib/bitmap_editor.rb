@@ -13,7 +13,6 @@ class BitmapEditor
       if command.create?
         params = command.parameters
         @bitmap = Bitmap.new(cols: params[:n], rows: params[:m])
-        next
       elsif @bitmap
         if command.show?
           puts @bitmap.draw
@@ -24,10 +23,10 @@ class BitmapEditor
           @bitmap.set_pixel_color(x: params[:x], y: params[:y], color: params[:color])
         elsif command.vertical?
           params = command.parameters
-          @bitmap.draw_vertical_line(x: params[:x], y1: params[:y1], y2: params[:y2], color: params[:color])
+          @bitmap.draw_vertical_line(x: params[:x], from: params[:y1], to: params[:y2], color: params[:color])
         elsif command.horizontal?
           params = command.parameters
-          @bitmap.draw_horizontal_line(y: params[:y], x1: params[:x1], x2: params[:x2], color: params[:color])
+          @bitmap.draw_horizontal_line(y: params[:y], from: params[:x1], to: params[:x2], color: params[:color])
         end
       else
         puts 'unrecognised command :('

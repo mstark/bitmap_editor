@@ -23,7 +23,7 @@ RSpec.describe Bitmap do
 
     context "y values in order" do
       before do
-        bitmap.draw_vertical_line(x: 1, y1: 2, y2: 4, color: "B")
+        bitmap.draw_vertical_line(x: 1, from: 2, to: 4, color: "B")
       end
 
       it "draws vertical line with given params" do
@@ -33,7 +33,7 @@ RSpec.describe Bitmap do
 
     context "y values in reverse order" do
       before do
-        bitmap.draw_vertical_line(x: 1, y1: 4, y2: 2, color: "B")
+        bitmap.draw_vertical_line(x: 1, from: 4, to: 2, color: "B")
       end
 
       it "draws vertical line with given params" do
@@ -47,7 +47,7 @@ RSpec.describe Bitmap do
 
     context "x values in order" do
       before do
-        bitmap.draw_horizontal_line(y: 2, x1: 2, x2: 4, color: "B")
+        bitmap.draw_horizontal_line(y: 2, from: 2, to: 4, color: "B")
       end
 
       it "draws horizontal line with given params" do
@@ -57,7 +57,7 @@ RSpec.describe Bitmap do
 
     context "x values in reverse order" do
       before do
-        bitmap.draw_horizontal_line(y: 2, x1: 4, x2: 2, color: "B")
+        bitmap.draw_horizontal_line(y: 2, from: 4, to: 2, color: "B")
       end
 
       it "draws horizontal line with given params" do

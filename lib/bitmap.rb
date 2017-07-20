@@ -13,8 +13,7 @@ class Bitmap
     dimensions.rows.times do |y|
       row = ""
       dimensions.cols.times do |x|
-        pos = [x + 1, y + 1].join("-")
-        row += colors.has_key?(pos) ? colors[pos] : @base_color
+        row += row_color(x: x + 1, y: y + 1)
       end
       bitmap += row + "\n"
     end
@@ -29,17 +28,28 @@ class Bitmap
     colors.store([x, y].join("-"), color)
   end
 
-  def draw_vertical_line(x:, y1:, y2:, color:)
-    y1, y2 = y2, y1 if y2 < y1 # flip values in case y2 is less than y1
-    (y1..y2).each do |y|
+  def draw_vertical_line(x:, from:, to:, color:)
+    from, to = to, from if to < from # flip values in case to is less than from
+    (from..to).each do |y|
       set_pixel_color(x: x, y: y, color: color)
     end
   end
 
-  def draw_horizontal_line(y:, x1:, x2:, color:)
-    x1, x2 = x2, x1 if x2 < x1 # flip values in case x2 is less than x1
-    (x1..x2).each do |x|
+  def draw_horizontal_line(y:, from:, to:, color:)
+    from, to = to, from if to < from # flip values in case to is less than from
+    (from..to).each do |x|
       set_pixel_color(x: x, y: y, color: color)
+    end
+  end
+
+  private
+
+  def row_color(x:, y:)
+    pos = [x, y].join("-")
+    if colors.has_key?(pos)
+      colors[pos]
+    else
+      @base_color
     end
   end
 end
