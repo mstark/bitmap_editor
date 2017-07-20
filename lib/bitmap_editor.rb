@@ -1,43 +1,47 @@
+require 'forwardable'
 require_relative "command"
 require_relative "bitmap"
 
 class BitmapEditor
+  extend Forwardable
+  attr_reader :command
+  def_delegators :command, :unknown?, :show?, :create?, :clear?,
+           :colors?, :vertical?, :horizontal?, :params
+
+  def initialize
+    @bitmap = nil
+  end
 
   def run(file)
     return puts "please provide correct file" if file.nil? || !File.exist?(file)
-    @bitmap = nil
+
     File.open(file).each do |line|
       line = line.chomp
-      command = Command.new(line)
+      @command = Command.new(line)
 
-      if command.create?
-        params = command.parameters
-        @bitmap = Bitmap.new(cols: params[:n], rows: params[:m])
-      elsif @bitmap
-        if command.show?
-          puts @bitmap.draw
-        elsif command.clear?
-          @bitmap.reset!
-        elsif command.colors?
-          params = command.parameters
-          @bitmap.set_pixel_color(x: params[:x], y: params[:y], color: params[:color])
-        elsif command.vertical?
-          params = command.parameters
-          @bitmap.draw_vertical_line(x: params[:x], from: params[:y1], to: params[:y2], color: params[:color])
-        elsif command.horizontal?
-          params = command.parameters
-          @bitmap.draw_horizontal_line(y: params[:y], from: params[:x1], to: params[:x2], color: params[:color])
-        end
-      else
+      if unknown?
         puts 'unrecognised command :('
+        break
       end
 
-      # case line
-      # when 'S'
-      #     puts "There is no image"
-      # else
-      #     puts 'unrecognised command :('
-      # end
+      if create?
+        @bitmap = Bitmap.new(cols: params[:n], rows: params[:m])
+      end
+
+      if @bitmap
+        if show?
+          puts @bitmap.draw
+        elsif clear?
+          @bitmap.reset!
+        elsif colors?
+          @bitmap.set_pixel_color(x: params[:x], y: params[:y], color: params[:color])
+        elsif vertical?
+          @bitmap.draw_vertical_line(x: params[:x], from: params[:y1], to: params[:y2], color: params[:color])
+        elsif horizontal?
+          @bitmap.draw_horizontal_line(y: params[:y], from: params[:x1], to: params[:x2], color: params[:color])
+        end
+      end
+
     end
   end
 end
