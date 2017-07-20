@@ -1,7 +1,7 @@
 class Color
   attr_reader :m, :command, :bitmap
 
-  def initialize(command, bitmap = nil)
+  def initialize(command, bitmap)
     @command = command
     @bitmap = bitmap
     @errors = nil
@@ -33,7 +33,7 @@ class Color
   end
 
   def in_bitmap_boundary?
-    bitmap && x <= bitmap.max_x && y <= bitmap.max_y
+    x <= bitmap.max_x && y <= bitmap.max_y
   end
 
   def matches

@@ -6,7 +6,7 @@ class Command
   RANGE = (1..250)
   COLOR = ("A".."Z")
 
-  def initialize(command, bitmap = nil)
+  def initialize(command, bitmap = NullBitmap.new)
     @command = command
     @bitmap = bitmap
     @result = nil

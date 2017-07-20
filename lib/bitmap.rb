@@ -49,6 +49,11 @@ class Bitmap
   def max_y
     dimensions.y
   end
+
+  def created?
+    true
+  end
+
   private
 
   def row_color(x:, y:)

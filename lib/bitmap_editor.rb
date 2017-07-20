@@ -1,6 +1,7 @@
 require 'forwardable'
 require_relative "command"
 require_relative "bitmap"
+require_relative "null_bitmap"
 
 class BitmapEditor
   extend Forwardable
@@ -9,7 +10,7 @@ class BitmapEditor
            :colors?, :vertical?, :horizontal?, :params
 
   def initialize
-    @bitmap = nil
+    @bitmap = NullBitmap.new
   end
 
   def run(file)
@@ -26,7 +27,7 @@ class BitmapEditor
 
       create if create?
 
-      if !create? && @bitmap
+      if @bitmap.created?
         if show?
           puts @bitmap.draw
         else
