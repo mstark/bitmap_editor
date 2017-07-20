@@ -2,7 +2,7 @@ require_relative "line"
 
 class HorizontalLine < Line
   def valid?
-    if Command::RANGE.include?(y) && in_range? && color?
+    if in_bitmap_boundary? && Command::RANGE.include?(y) && in_range? && color?
       @result = { x1: from, x2: to, y: y, color: color }
       true
     else
@@ -15,6 +15,10 @@ class HorizontalLine < Line
 
   def matches
     @m = /\A(H)\s{1}(\d{1,3})\s{1}(\d{1,3})\s{1}(\d{1,3})\s{1}([A-Z]{1})\z/.match(command)
+  end
+
+  def in_bitmap_boundary?
+    y <= bitmap.max_y && to <= bitmap.max_x && from <= bitmap.max_x
   end
 
   def from

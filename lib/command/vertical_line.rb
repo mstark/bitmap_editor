@@ -2,7 +2,7 @@ require_relative "line"
 
 class VerticalLine < Line
   def valid?
-    if Command::RANGE.include?(x) && in_range? && color?
+    if in_bitmap_boundary? && Command::RANGE.include?(x) && in_range? && color?
       @result = { x: x, y1: from, y2: to, color: color }
       true
     else
@@ -15,6 +15,10 @@ class VerticalLine < Line
 
   def matches
     @m = /\A(V)\s{1}(\d{1,3})\s{1}(\d{1,3})\s{1}(\d{1,3})\s{1}([A-Z]{1})\z/.match(command)
+  end
+
+  def in_bitmap_boundary?
+    x <= bitmap.max_x && to <= bitmap.max_y && from <= bitmap.max_y
   end
 
   def from

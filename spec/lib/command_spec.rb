@@ -42,8 +42,8 @@ RSpec.describe Command do
 
   describe "#vertical?" do
     it "returns true when given command matches" do
-      expect(Command.new("V 5 5 15 W").vertical?).to be true
-      expect(Command.new("V 1 5 250 O").vertical?).to be true
+      expect(Command.new("V 5 5 15 W", Bitmap.new(cols: 5, rows: 15)).vertical?).to be true
+      expect(Command.new("V 1 5 250 O", Bitmap.new(cols: 5, rows: 250)).vertical?).to be true
     end
 
     it "returns false when given command doesn't match" do
@@ -56,8 +56,8 @@ RSpec.describe Command do
 
   describe "#horizontal?" do
     it "returns true when given command matches" do
-      expect(Command.new("H 5 5 15 W").horizontal?).to be true
-      expect(Command.new("H 1 5 250 O").horizontal?).to be true
+      expect(Command.new("H 5 5 15 W", Bitmap.new(cols: 5, rows: 15)).horizontal?).to be true
+      expect(Command.new("H 1 5 250 O", Bitmap.new(cols: 5, rows: 250)).horizontal?).to be true
     end
 
     it "returns false when given command doesn't match" do

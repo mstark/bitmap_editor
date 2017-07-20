@@ -1,5 +1,5 @@
 class Line
-  attr_reader :m, :command
+  attr_reader :m, :command, :bitmap
 
   def initialize(command, bitmap)
     @command = command
