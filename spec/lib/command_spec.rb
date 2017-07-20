@@ -28,14 +28,15 @@ RSpec.describe Command do
 
   describe "#colors?" do
     it "returns true when given command matches" do
-      expect(Command.new("L 5 5 W").colors?).to be true
-      expect(Command.new("L 1 250 O").colors?).to be true
+      expect(Command.new("L 5 5 W", Bitmap.new(cols: 5, rows: 5)).colors?).to be true
+      expect(Command.new("L 1 250 O", Bitmap.new(cols: 5, rows: 250)).colors?).to be true
     end
 
     it "returns false when given command doesn't match" do
-      expect(Command.new("l 5 5 W").colors?).to be false
-      expect(Command.new("L 0 250 O").colors?).to be false
-      expect(Command.new("L 1 250 0").colors?).to be false
+      expect(Command.new("l 5 5 W", Bitmap.new(cols: 5, rows: 5)).colors?).to be false
+      expect(Command.new("L 0 250 O", Bitmap.new(cols: 5, rows: 250)).colors?).to be false
+      expect(Command.new("L 1 250 0", Bitmap.new(cols: 5, rows: 250)).colors?).to be false
+      expect(Command.new("L 1 250 O", Bitmap.new(cols: 5, rows: 5)).colors?).to be false
     end
   end
 
