@@ -17,31 +17,41 @@ class BitmapEditor
 
     File.open(file).each do |line|
       line = line.chomp
-      @command = Command.new(line)
+      @command = Command.new(line, @bitmap)
 
       if unknown?
         puts 'unrecognised command :('
         break
       end
 
-      if create?
-        @bitmap = Bitmap.new(cols: params[:n], rows: params[:m])
-      end
+      create if create?
 
-      if @bitmap
+      if !create? && @bitmap
         if show?
           puts @bitmap.draw
-        elsif clear?
-          @bitmap.reset!
-        elsif colors?
-          @bitmap.set_pixel_color(x: params[:x], y: params[:y], color: params[:color])
-        elsif vertical?
-          @bitmap.draw_vertical_line(x: params[:x], from: params[:y1], to: params[:y2], color: params[:color])
-        elsif horizontal?
-          @bitmap.draw_horizontal_line(y: params[:y], from: params[:x1], to: params[:x2], color: params[:color])
+        else
+          edit
         end
       end
 
+    end
+  end
+
+  private
+
+  def create
+    @bitmap = Bitmap.new(cols: params[:n], rows: params[:m])
+  end
+
+  def edit
+    if clear?
+      @bitmap.reset!
+    elsif colors?
+      @bitmap.set_pixel_color(x: params[:x], y: params[:y], color: params[:color])
+    elsif vertical?
+      @bitmap.draw_vertical_line(x: params[:x], from: params[:y1], to: params[:y2], color: params[:color])
+    elsif horizontal?
+      @bitmap.draw_horizontal_line(y: params[:y], from: params[:x1], to: params[:x2], color: params[:color])
     end
   end
 end
