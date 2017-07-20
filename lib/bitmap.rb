@@ -1,18 +1,18 @@
 class Bitmap
   attr_reader :dimensions, :colors
-  Dimensions = Struct.new(:rows, :cols)
+  Dimensions = Struct.new(:x, :y)
 
   def initialize(cols:, rows:, base_color: "O")
-    @dimensions = Dimensions.new(rows, cols)
+    @dimensions = Dimensions.new(cols, rows)
     @colors = {}
     @base_color = base_color
   end
 
   def draw
     bitmap = ""
-    dimensions.rows.times do |y|
+    dimensions.y.times do |y|
       row = ""
-      dimensions.cols.times do |x|
+      dimensions.x.times do |x|
         row += row_color(x: x + 1, y: y + 1)
       end
       bitmap += row + "\n"
@@ -42,6 +42,13 @@ class Bitmap
     end
   end
 
+  def max_x
+    dimensions.x
+  end
+
+  def max_y
+    dimensions.y
+  end
   private
 
   def row_color(x:, y:)
