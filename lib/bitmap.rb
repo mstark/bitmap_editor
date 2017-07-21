@@ -12,9 +12,14 @@ class Bitmap
     bitmap = ""
     dimensions.y.times do |y|
       row = ""
-      dimensions.x.times do |x|
-        row += row_color(x: x + 1, y: y + 1)
+      if color_keys.any? { |k| k.include?("-#{y + 1}") }
+        dimensions.x.times do |x|
+          row += row_color(x: x + 1, y: y + 1)
+        end
+      else
+        row += @base_color * dimensions.x
       end
+
       bitmap += row + "\n"
     end
     bitmap
@@ -55,6 +60,10 @@ class Bitmap
   end
 
   private
+
+  def color_keys
+    colors.keys
+  end
 
   def row_color(x:, y:)
     pos = [x, y].join("-")
