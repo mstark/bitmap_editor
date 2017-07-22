@@ -3,21 +3,27 @@ class Create < Base
 
   def initialize(command)
     @command = command
-    @errors = nil
+    @errors = []
+    @result = {}
     matches
   end
 
   def valid?
-    if RANGE.include?(cols) && RANGE.include?(rows)
+    @errors.push("Given values must be between 1 and 250.") unless in_range?
+
+    if @errors.empty?
       @result = { n: cols, m: rows }
       true
     else
-      @errors = { errors: [] }
       false
     end
   end
 
   private
+
+  def in_range?
+    RANGE.include?(cols) && RANGE.include?(rows)
+  end
 
   def matches
     @m = /\A(I)\s{1}(\d{1,3})\s{1}(\d{1,3})\z/.match(command)
