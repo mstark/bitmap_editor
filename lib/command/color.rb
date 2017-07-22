@@ -5,16 +5,21 @@ class Color < Base
   def initialize(command, bitmap)
     @command = command
     @bitmap = bitmap
-    @errors = nil
+    @errors = []
     matches
   end
 
   def valid?
-    if in_bitmap_boundary? && in_range? && valid_color?
+    unless in_bitmap_boundary?
+      @errors.push("Given x/y values are not within in the bitmap!")
+    end
+
+    @errors.push("Given color is invalid!") unless valid_color?
+
+    if @errors.empty?
       @result = { x: x, y: y, color: color }
       true
     else
-      @errors = { errors: [] }
       false
     end
   end
@@ -26,7 +31,7 @@ class Color < Base
   end
 
   def in_bitmap_boundary?
-    x <= bitmap.max_x && y <= bitmap.max_y
+    in_range? && x <= bitmap.max_x && y <= bitmap.max_y
   end
 
   def matches

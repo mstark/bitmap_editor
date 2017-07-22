@@ -12,6 +12,10 @@ class Base
     @result || {}
   end
 
+  def invalid?
+    !valid?
+  end
+
   private
 
   def valid_color?
