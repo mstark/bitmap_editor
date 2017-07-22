@@ -28,6 +28,10 @@ RSpec.describe Color do
       it "adds invalid color error" do
         expect(color.errors).to include("Given color is invalid!")
       end
+
+      it "result is empty" do
+        expect(color.result).to be_empty
+      end
     end
   end
 
