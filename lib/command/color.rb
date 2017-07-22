@@ -6,6 +6,7 @@ class Color < Base
     @command = command
     @bitmap = bitmap
     @errors = []
+    @result = {}
     matches
   end
 
