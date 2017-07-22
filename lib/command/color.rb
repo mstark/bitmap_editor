@@ -1,5 +1,6 @@
-class Color
-  attr_reader :m, :command, :bitmap
+require_relative "base"
+
+class Color < Base
 
   def initialize(command, bitmap)
     @command = command
@@ -9,7 +10,7 @@ class Color
   end
 
   def valid?
-    if in_bitmap_boundary? && in_range? && Command::COLOR.include?(color)
+    if in_bitmap_boundary? && in_range? && valid_color?
       @result = { x: x, y: y, color: color }
       true
     else
@@ -18,18 +19,10 @@ class Color
     end
   end
 
-  def errors
-    @errors || []
-  end
-
-  def result
-    @result || {}
-  end
-
   private
 
   def in_range?
-    Command::RANGE.include?(x) && Command::RANGE.include?(y)
+    RANGE.include?(x) && RANGE.include?(y)
   end
 
   def in_bitmap_boundary?

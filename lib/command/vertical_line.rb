@@ -1,8 +1,9 @@
 require_relative "line"
 
 class VerticalLine < Line
+
   def valid?
-    if in_bitmap_boundary? && Command::RANGE.include?(x) && in_range? && color?
+    if in_bitmap_boundary? && RANGE.include?(x) && in_range? && valid_color?
       @result = { x: x, y1: from, y2: to, color: color }
       true
     else

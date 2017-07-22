@@ -5,8 +5,6 @@ require_relative "command/horizontal_line"
 
 class Command
   attr_reader :command, :bitmap
-  RANGE = (1..250)
-  COLOR = ("A".."Z")
 
   def initialize(command, bitmap = NullBitmap.new)
     @command = command

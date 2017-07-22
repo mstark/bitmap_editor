@@ -1,5 +1,5 @@
-class Line
-  attr_reader :m, :command, :bitmap
+require_relative "base"
+class Line < Base
 
   def initialize(command, bitmap)
     @command = command
@@ -8,22 +8,10 @@ class Line
     matches
   end
 
-  def result
-    @result || {}
-  end
-
-  def errors
-    @errors || []
-  end
-
   private
 
   def in_range?
-    Command::RANGE.include?(from) && Command::RANGE.include?(to)
-  end
-
-  def color?
-    Command::COLOR.include?(color)
+    RANGE.include?(from) && RANGE.include?(to)
   end
 
   def color

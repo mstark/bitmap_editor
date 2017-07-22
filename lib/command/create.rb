@@ -1,5 +1,5 @@
-class Create
-  attr_reader :m, :command
+require_relative "base"
+class Create < Base
 
   def initialize(command)
     @command = command
@@ -8,21 +8,13 @@ class Create
   end
 
   def valid?
-    if Command::RANGE.include?(cols) && Command::RANGE.include?(rows)
+    if RANGE.include?(cols) && RANGE.include?(rows)
       @result = { n: cols, m: rows }
       true
     else
       @errors = { errors: [] }
       false
     end
-  end
-
-  def errors
-    @errors || []
-  end
-
-  def result
-    @result || {}
   end
 
   private
