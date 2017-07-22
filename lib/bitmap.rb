@@ -17,7 +17,7 @@ class Bitmap
           row += row_color(x: x + 1, y: y + 1)
         end
       else
-        row += @base_color * dimensions.x
+        row = base_color_row
       end
 
       bitmap += row + "\n"
@@ -60,6 +60,10 @@ class Bitmap
   end
 
   private
+
+  def base_color_row
+    @base_color * dimensions.x
+  end
 
   def color_keys
     colors.keys
