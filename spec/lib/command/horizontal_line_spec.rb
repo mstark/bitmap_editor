@@ -3,7 +3,7 @@ RSpec.describe HorizontalLine do
   describe "#valid?" do
     context "with valid parameters" do
       let(:command) { "H 5 15 5 W" }
-      let(:bitmap) { Bitmap.new(cols: 5, rows: 15) }
+      let(:bitmap) { Bitmap.new(cols: 15, rows: 5) }
       let(:line) { HorizontalLine.new(command, bitmap) }
 
       it "returns true and assigns values" do

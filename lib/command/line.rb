@@ -4,7 +4,8 @@ class Line < Base
   def initialize(command, bitmap)
     @command = command
     @bitmap = bitmap
-    @errors = nil
+    @errors = []
+    @result = {}
     matches
   end
 

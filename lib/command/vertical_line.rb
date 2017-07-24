@@ -3,11 +3,16 @@ require_relative "line"
 class VerticalLine < Line
 
   def valid?
-    if in_bitmap_boundary? && RANGE.include?(x) && in_range? && valid_color?
+    @errors.push("Given color is invalid!") unless valid_color?
+
+    unless range_parameters?
+      @errors.push("Given values are not within in the bitmap!")
+    end
+
+    if @errors.empty?
       @result = { x: x, y1: from, y2: to, color: color }
       true
     else
-      @errors = { errors: [] }
       false
     end
   end
@@ -16,6 +21,10 @@ class VerticalLine < Line
 
   def matches
     @m = /\A(V)\s{1}(\d{1,3})\s{1}(\d{1,3})\s{1}(\d{1,3})\s{1}([A-Z]{1})\z/.match(command)
+  end
+
+  def range_parameters?
+    in_bitmap_boundary? && RANGE.include?(x) && in_range?
   end
 
   def in_bitmap_boundary?
