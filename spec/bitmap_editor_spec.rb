@@ -18,4 +18,12 @@ RSpec.describe BitmapEditor do
       end
     end
   end
+
+  describe "#run" do
+    it "detects file parameter correctly" do
+      expect {
+        BitmapEditor.new.run(".")
+      }.to output("please provide correct file\n").to_stdout
+    end
+  end
 end

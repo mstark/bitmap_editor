@@ -9,8 +9,16 @@ class BitmapEditor
   end
 
   def run(file)
-    return puts "please provide correct file" if file.nil? || !File.exist?(file)
+    if file.nil? || !File.exist?(file) || File.directory?(file)
+      return puts "please provide correct file"
+    end
 
+    execute(file)
+  end
+
+  private
+
+  def execute(file)
     File.open(file).each do |line|
       line = line.chomp
 
