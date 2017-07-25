@@ -1,8 +1,4 @@
 class NullBitmap
-  def created?
-    false
-  end
-
   def draw
     bitmap_missing
   end

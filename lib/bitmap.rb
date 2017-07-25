@@ -56,10 +56,6 @@ class Bitmap
     dimensions.y
   end
 
-  def created?
-    true
-  end
-
   private
 
   def base_color_row
