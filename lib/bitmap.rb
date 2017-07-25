@@ -1,3 +1,4 @@
+# Holds bitmap dimensions and color positions.
 class Bitmap
   attr_reader :dimensions, :colors
   Dimensions = Struct.new(:x, :y)

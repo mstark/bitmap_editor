@@ -1,26 +1,20 @@
 require_relative "line"
 
+# Command: V X Y1 Y2 C
+# Draws vertical line in column X,
+# from row Y1 to/including Y2,
+# with color C
 class VerticalLine < Line
 
-  def valid?
-    @errors.push("Given color is invalid!") unless valid_color?
-
-    unless range_parameters?
-      @errors.push("Given values are not within in the bitmap!")
-    end
-
-    if @errors.empty?
-      @result = { x: x, y1: from, y2: to, color: color }
-      true
-    else
-      false
-    end
+  def call
+    super
+    command.bitmap.draw_vertical_line(x: x, from: from, to: to, color: color)
   end
 
   private
 
   def matches
-    @m = /\A(V)\s{1}(\d{1,3})\s{1}(\d{1,3})\s{1}(\d{1,3})\s{1}([A-Z]{1})\z/.match(command)
+    @m = /\A(V)\s{1}(\d{1,3})\s{1}(\d{1,3})\s{1}(\d{1,3})\s{1}([A-Z]{1})\z/.match(command.line)
   end
 
   def range_parameters?
@@ -28,7 +22,7 @@ class VerticalLine < Line
   end
 
   def in_bitmap_boundary?
-    x <= bitmap.max_x && to <= bitmap.max_y && from <= bitmap.max_y
+    x <= command.bitmap.max_x && to <= command.bitmap.max_y && from <= command.bitmap.max_y
   end
 
   def from

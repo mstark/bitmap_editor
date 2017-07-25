@@ -1,20 +1,8 @@
 class Base
-  attr_reader :m, :command, :bitmap
+  attr_reader :m, :command
 
   RANGE = (1..250)
   COLOR = ("A".."Z")
-
-  def errors
-    @errors || []
-  end
-
-  def result
-    @result || {}
-  end
-
-  def invalid?
-    !valid?
-  end
 
   private
 

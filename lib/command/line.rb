@@ -1,12 +1,16 @@
 require_relative "base"
 class Line < Base
 
-  def initialize(command, bitmap)
+  def initialize(command)
     @command = command
-    @bitmap = bitmap
-    @errors = []
-    @result = {}
+    @bitmap = command.bitmap
+  end
+
+  def call
     matches
+
+    raise("Given color is invalid!") unless valid_color?
+    raise("Given values are not within in the bitmap!") unless range_parameters?
   end
 
   private
@@ -18,5 +22,4 @@ class Line < Base
   def color
     m && m[5] ? m[5] : ""
   end
-
 end

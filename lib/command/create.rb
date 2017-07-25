@@ -1,22 +1,17 @@
 require_relative "base"
+
+# Command: I M N
+# Creates bitmap with dimension M,N
 class Create < Base
 
   def initialize(command)
     @command = command
-    @errors = []
-    @result = {}
     matches
   end
 
-  def valid?
-    @errors.push("Given values must be between 1 and 250.") unless in_range?
-
-    if @errors.empty?
-      @result = { n: cols, m: rows }
-      true
-    else
-      false
-    end
+  def call
+    raise("Given values must be between 1 and 250.") unless in_range?
+    command.bitmap = Bitmap.new(cols: cols, rows: rows)
   end
 
   private
@@ -26,7 +21,7 @@ class Create < Base
   end
 
   def matches
-    @m = /\A(I)\s{1}(\d{1,3})\s{1}(\d{1,3})\z/.match(command)
+    @m = /\A(I)\s{1}(\d{1,3})\s{1}(\d{1,3})\z/.match(command.line)
   end
 
   def cols

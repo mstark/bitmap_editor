@@ -1,26 +1,20 @@
 require_relative "line"
 
+# Command: H X1 X2 Y C
+# Draws horizontal line in row Y,
+# from column X1 to/including X2,
+# with color C
 class HorizontalLine < Line
 
-  def valid?
-    @errors.push("Given color is invalid!") unless valid_color?
-
-    unless range_parameters?
-      @errors.push("Given values are not within in the bitmap!")
-    end
-
-    if @errors.empty?
-      @result = { x1: from, x2: to, y: y, color: color }
-      true
-    else
-      false
-    end
+  def call
+    super
+    command.bitmap.draw_horizontal_line(y: y, from: from, to: to, color: color)
   end
 
   private
 
   def matches
-    @m = /\A(H)\s{1}(\d{1,3})\s{1}(\d{1,3})\s{1}(\d{1,3})\s{1}([A-Z]{1})\z/.match(command)
+    @m = /\A(H)\s{1}(\d{1,3})\s{1}(\d{1,3})\s{1}(\d{1,3})\s{1}([A-Z]{1})\z/.match(command.line)
   end
 
   def range_parameters?
@@ -28,7 +22,7 @@ class HorizontalLine < Line
   end
 
   def in_bitmap_boundary?
-    y <= bitmap.max_y && to <= bitmap.max_x && from <= bitmap.max_x
+    y <= command.bitmap.max_y && to <= command.bitmap.max_x && from <= command.bitmap.max_x
   end
 
   def from

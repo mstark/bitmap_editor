@@ -2,80 +2,45 @@ require_relative "command/create"
 require_relative "command/color"
 require_relative "command/vertical_line"
 require_relative "command/horizontal_line"
+require_relative "command/unknown"
+require_relative "command/clear"
+require_relative "command/show"
 
 class Command
-  attr_reader :command, :bitmap
+  attr_reader :line
+  attr_accessor :bitmap
 
-  def initialize(command, bitmap = NullBitmap.new)
-    @command = command
+  def initialize(line, bitmap = NullBitmap.new)
+    @line = line.to_s
     @bitmap = bitmap
-    @result = nil
   end
 
-  def unknown?
-    !command.start_with?("I", "C", "L", "A", "V", "H", "S")
-  end
-
-  # I M N
-  def create?
-    create = Create.new(command)
-
-    if create.valid?
-      @result = create.result
+  def call
+    if known?
+      klazz.new(self).call
     else
-      @errors = create.errors
+      Unknown.new(self).call
     end
-
-    create.errors.empty?
   end
 
-  # C
-  def clear?
-    command.strip == "C"
+  def known?
+    line.start_with?("I", "C", "L", "V", "H", "S")
   end
 
-  # L X Y C
-  def colors?
-    color = Color.new(command, bitmap)
+  private
 
-    if color.valid?
-      @result = color.result
-    else
-      @errors = color.errors
-    end
-
-    color.errors.empty?
+  def klazz
+    Object.const_get(commands[line[0]])
   end
 
-  # V X Y1 Y2 C
-  def vertical?
-    line = VerticalLine.new(command, bitmap)
-    if line.valid?
-      @result = line.result
-    else
-      @errors = line.errors
-    end
-
-    line.errors.empty?
-  end
-
-  # H X1 X2 Y C
-  def horizontal?
-    line = HorizontalLine.new(command, bitmap)
-    if line.valid?
-      @result = line.result
-    else
-      @errors = line.errors
-    end
-
-    line.errors.empty?
-  end
-
-  def show?
-    command.strip == "S"
-  end
-
-  def params
-    @result
+  def commands
+    {
+      "I" => "Create",
+      "C" => "Clear",
+      "L" => "Color",
+      "V" => "VerticalLine",
+      "H" => "HorizontalLine",
+      "S" => "Show"
+    }
   end
 end

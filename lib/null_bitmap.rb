@@ -3,11 +3,25 @@ class NullBitmap
     false
   end
 
+  def draw
+    bitmap_missing
+  end
+
   def max_x
-    0
+    bitmap_missing
   end
 
   def max_y
-    0
+    bitmap_missing
+  end
+
+  def reset!
+    bitmap_missing
+  end
+
+  private
+
+  def bitmap_missing
+    raise("Please create a bitmap first!")
   end
 end

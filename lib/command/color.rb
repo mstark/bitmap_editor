@@ -1,28 +1,24 @@
 require_relative "base"
 
+# Command: L X Y C
+# Sets Bitmap to color C,
+# at position X,Y
 class Color < Base
 
-  def initialize(command, bitmap)
+  def initialize(command)
     @command = command
-    @bitmap = bitmap
-    @errors = []
-    @result = {}
-    matches
   end
 
-  def valid?
+  def call
+    matches
+
     unless in_bitmap_boundary?
-      @errors.push("Given x/y values are not within in the bitmap!")
+      raise("Given values are not within in the bitmap!")
     end
 
-    @errors.push("Given color is invalid!") unless valid_color?
+    raise("Given color is invalid!") unless valid_color?
 
-    if @errors.empty?
-      @result = { x: x, y: y, color: color }
-      true
-    else
-      false
-    end
+    command.bitmap.set_pixel_color(x: x, y: y, color: color)
   end
 
   private
@@ -32,11 +28,11 @@ class Color < Base
   end
 
   def in_bitmap_boundary?
-    in_range? && x <= bitmap.max_x && y <= bitmap.max_y
+    in_range? && x <= command.bitmap.max_x && y <= command.bitmap.max_y
   end
 
   def matches
-    @m = /\A(L)\s{1}(\d{1,3})\s{1}(\d{1,3})\s{1}([A-Z]{1})\z/.match(command)
+    @m = /\A(L)\s{1}(\d{1,3})\s{1}(\d{1,3})\s{1}([A-Z]{1})\z/.match(command.line)
   end
 
   def x
