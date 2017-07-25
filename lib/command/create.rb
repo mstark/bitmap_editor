@@ -10,7 +10,7 @@ class Create < Base
   end
 
   def call
-    raise("Given values must be between 1 and 250.") unless in_range?
+    raise("Given values must be between 1 and 250. (in: #{line})") unless in_range?
     command.bitmap = Bitmap.new(cols: cols, rows: rows)
   end
 

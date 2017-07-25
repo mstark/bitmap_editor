@@ -20,13 +20,13 @@ RSpec.describe HorizontalLine do
       it "adds boundary error" do
         expect {
           HorizontalLine.new(command_invalid_boundary).call
-        }.to raise_error(RuntimeError, "Given values are not within in the bitmap!")
+        }.to raise_error(RuntimeError, "Given values are not within in the bitmap! (in: H 5 15 5 W)")
       end
 
       it "adds invalid color error" do
         expect {
           HorizontalLine.new(command_invalid_color).call
-        }.to raise_error(RuntimeError, "Given color is invalid!")
+        }.to raise_error(RuntimeError, "Given color is invalid! (in: H 5 15 5 0)")
       end
     end
   end

@@ -8,8 +8,8 @@ class Line < Base
   def call
     matches
 
-    raise("Given color is invalid!") unless valid_color?
-    raise("Given values are not within in the bitmap!") unless range_parameters?
+    raise("Given color is invalid! (in: #{line})") unless valid_color?
+    raise("Given values are not within in the bitmap! (in: #{line})") unless range_parameters?
   end
 
   private

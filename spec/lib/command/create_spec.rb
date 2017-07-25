@@ -18,7 +18,7 @@ RSpec.describe Create do
       it "adds error" do
         expect {
           create.call
-        }.to raise_error(RuntimeError, "Given values must be between 1 and 250.")
+        }.to raise_error(RuntimeError, "Given values must be between 1 and 250. (in: I 0 5)")
       end
     end
   end

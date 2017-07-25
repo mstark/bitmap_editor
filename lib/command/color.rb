@@ -13,10 +13,10 @@ class Color < Base
     matches
 
     unless in_bitmap_boundary?
-      raise("Given values are not within in the bitmap!")
+      raise("Given values are not within in the bitmap! (in: #{line})")
     end
 
-    raise("Given color is invalid!") unless valid_color?
+    raise("Given color is invalid! (in: #{line})") unless valid_color?
 
     bitmap.set_pixel_color(x: x, y: y, color: color)
   end

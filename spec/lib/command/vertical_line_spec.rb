@@ -20,13 +20,13 @@ RSpec.describe VerticalLine do
       it "adds boundary error" do
         expect {
           VerticalLine.new(command_invalid_boundary).call
-        }.to raise_error(RuntimeError, "Given values are not within in the bitmap!")
+        }.to raise_error(RuntimeError, "Given values are not within in the bitmap! (in: V 5 5 15 W)")
       end
 
       it "adds invalid color error" do
         expect {
           VerticalLine.new(command_invalid_color).call
-        }.to raise_error(RuntimeError, "Given color is invalid!")
+        }.to raise_error(RuntimeError, "Given color is invalid! (in: V 5 5 15 0)")
       end
     end
   end
