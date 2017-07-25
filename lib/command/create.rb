@@ -21,14 +21,14 @@ class Create < Base
   end
 
   def matches
-    @m = /\A(I)\s{1}(\d{1,3})\s{1}(\d{1,3})\z/.match(command.line)
+    @m = command.line.split(" ", 3)
   end
 
   def cols
-    m && m[2] ? m[2].to_i : 0
+    m && m[1] ? m[1].to_i : 0
   end
 
   def rows
-    m && m[3] ? m[3].to_i : 0
+    m && m[2] ? m[2].to_i : 0
   end
 end

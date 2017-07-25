@@ -32,18 +32,18 @@ class Color < Base
   end
 
   def matches
-    @m = /\A(L)\s{1}(\d{1,3})\s{1}(\d{1,3})\s{1}([A-Z]{1})\z/.match(command.line)
+    @m = command.line.split(" ", 4)
   end
 
   def x
-    m && m[2] ? m[2].to_i : 0
+    m && m[1] ? m[1].to_i : 0
   end
 
   def y
-    m && m[3] ? m[3].to_i : 0
+    m && m[2] ? m[2].to_i : 0
   end
 
   def color
-    m && m[4] ? m[4] : ""
+    m && m[3] ? m[3] : ""
   end
 end

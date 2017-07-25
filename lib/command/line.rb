@@ -20,6 +20,6 @@ class Line < Base
   end
 
   def color
-    m && m[5] ? m[5] : ""
+    m && m[4] ? m[4] : ""
   end
 end
