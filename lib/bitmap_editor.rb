@@ -1,13 +1,8 @@
-# require 'forwardable'
 require_relative "command"
 require_relative "null_bitmap"
 require_relative "bitmap"
 
 class BitmapEditor
-  # extend Forwardable
-  # attr_reader :command
-  # def_delegators :command, :unknown?, :known?, :show?, :create?, :clear?,
-  #          :colors?, :vertical?, :horizontal?, :params
 
   def initialize
     @bitmap = NullBitmap.new
@@ -26,5 +21,6 @@ class BitmapEditor
     end
   rescue => e
     puts e.message
+    puts e.backtrace if ENV["DEBUG_BITMAP_EDITOR"]
   end
 end

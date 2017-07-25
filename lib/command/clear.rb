@@ -2,14 +2,13 @@
 # Clears all color from the Bitmap
 #
 # - ignores all input in line following capital C
-class Clear
-  attr_reader :command
+class Clear < Base
 
   def initialize(command)
     @command = command
   end
 
   def call
-    command.bitmap.reset!
+    bitmap.reset!
   end
 end

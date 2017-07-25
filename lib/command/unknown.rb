@@ -1,11 +1,10 @@
-class Unknown
-  attr_reader :command
+class Unknown < Base
 
   def initialize(command)
     @command = command
   end
 
   def call
-    raise "Unrecognised command: #{command.line} :("
+    raise "Unrecognised command: #{line} :("
   end
 end

@@ -21,7 +21,7 @@ class Create < Base
   end
 
   def matches
-    @m = command.line.split(" ", 3)
+    @m = line.split(" ", 3)
   end
 
   def cols

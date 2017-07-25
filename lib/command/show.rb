@@ -2,14 +2,13 @@
 #  Shows the Bitmap
 #
 # - ignores all input in line following capital S
-class Show
-  attr_reader :command
+class Show < Base
 
   def initialize(command)
     @command = command
   end
 
   def call
-    puts command.bitmap.draw
+    puts bitmap.draw
   end
 end

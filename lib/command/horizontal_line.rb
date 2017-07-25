@@ -8,13 +8,13 @@ class HorizontalLine < Line
 
   def call
     super
-    command.bitmap.draw_horizontal_line(y: y, from: from, to: to, color: color)
+    bitmap.draw_horizontal_line(y: y, from: from, to: to, color: color)
   end
 
   private
 
   def matches
-    @m = command.line.split(" ", 5)
+    @m = line.split(" ", 5)
   end
 
   def range_parameters?
@@ -22,7 +22,7 @@ class HorizontalLine < Line
   end
 
   def in_bitmap_boundary?
-    y <= command.bitmap.max_y && to <= command.bitmap.max_x && from <= command.bitmap.max_x
+    y <= bitmap.max_y && to <= bitmap.max_x && from <= bitmap.max_x
   end
 
   def from

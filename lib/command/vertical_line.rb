@@ -8,13 +8,13 @@ class VerticalLine < Line
 
   def call
     super
-    command.bitmap.draw_vertical_line(x: x, from: from, to: to, color: color)
+    bitmap.draw_vertical_line(x: x, from: from, to: to, color: color)
   end
 
   private
 
   def matches
-    @m = command.line.split(" ", 5)
+    @m = line.split(" ", 5)
   end
 
   def range_parameters?
@@ -22,7 +22,7 @@ class VerticalLine < Line
   end
 
   def in_bitmap_boundary?
-    x <= command.bitmap.max_x && to <= command.bitmap.max_y && from <= command.bitmap.max_y
+    x <= bitmap.max_x && to <= bitmap.max_y && from <= bitmap.max_y
   end
 
   def from

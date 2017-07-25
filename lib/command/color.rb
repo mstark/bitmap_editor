@@ -18,7 +18,7 @@ class Color < Base
 
     raise("Given color is invalid!") unless valid_color?
 
-    command.bitmap.set_pixel_color(x: x, y: y, color: color)
+    bitmap.set_pixel_color(x: x, y: y, color: color)
   end
 
   private
@@ -28,11 +28,11 @@ class Color < Base
   end
 
   def in_bitmap_boundary?
-    in_range? && x <= command.bitmap.max_x && y <= command.bitmap.max_y
+    in_range? && x <= bitmap.max_x && y <= bitmap.max_y
   end
 
   def matches
-    @m = command.line.split(" ", 4)
+    @m = line.split(" ", 4)
   end
 
   def x

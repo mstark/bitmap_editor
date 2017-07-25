@@ -3,7 +3,6 @@ class Line < Base
 
   def initialize(command)
     @command = command
-    @bitmap = command.bitmap
   end
 
   def call
