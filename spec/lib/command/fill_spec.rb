@@ -7,8 +7,7 @@ RSpec.describe Fill do
       let(:command) { Command.new("F 4 4 W", bitmap) }
 
       it "assigns given color" do
-        skip
-        expect(bitmap).to receive(:set_pixel_color)
+        expect(bitmap).to receive(:set_pixel_color).and_call_original.exactly(5*5).times
         Fill.new(command).call
       end
     end
