@@ -2,7 +2,6 @@ I 5 5
 L 1 5 R
 L 2 4 R
 L 3 3 R
-L 2 2 R
-L 1 5 R
-F 5 5 B
+L 4 2 R
+L 5 1 R
 S
