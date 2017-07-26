@@ -42,7 +42,7 @@ RSpec.describe Command do
     end
 
     context "colors" do
-      it "excutes when given command matches" do
+      it "executes when given command matches" do
         expect { Command.new("L 5 5 W", Bitmap.new(cols: 5, rows: 5)).call }.to_not raise_error
         expect { Command.new("L 1 250 O", Bitmap.new(cols: 5, rows: 250)).call }.to_not raise_error
       end
@@ -56,7 +56,7 @@ RSpec.describe Command do
     end
 
     context "fill" do
-      it "excutes when given command matches" do
+      it "executes when given command matches" do
         expect { Command.new("F 5 5 W", Bitmap.new(cols: 5, rows: 5)).call }.to_not raise_error
         expect { Command.new("F 1 250 O", Bitmap.new(cols: 5, rows: 250)).call }.to_not raise_error
       end
