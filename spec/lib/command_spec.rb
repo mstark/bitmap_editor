@@ -55,6 +55,20 @@ RSpec.describe Command do
       end
     end
 
+    context "fill" do
+      it "excutes when given command matches" do
+        expect { Command.new("F 5 5 W", Bitmap.new(cols: 5, rows: 5)).call }.to_not raise_error
+        expect { Command.new("F 1 250 O", Bitmap.new(cols: 5, rows: 250)).call }.to_not raise_error
+      end
+
+      it "raises exception when given command doesn't match" do
+        expect { Command.new("f 5 5 W", Bitmap.new(cols: 5, rows: 5)).call }.to raise_error(RuntimeError)
+        expect { Command.new("F 0 250 O", Bitmap.new(cols: 5, rows: 250)).call }.to raise_error(RuntimeError)
+        expect { Command.new("F 1 250 0", Bitmap.new(cols: 5, rows: 250)).call }.to raise_error(RuntimeError)
+        expect { Command.new("F 1 250 O", Bitmap.new(cols: 5, rows: 5)).call }.to raise_error(RuntimeError)
+      end
+    end
+
     context "vertical line" do
       let(:bitmap) { Bitmap.new(cols: 5, rows: 250) }
       it "executes when given command matches" do

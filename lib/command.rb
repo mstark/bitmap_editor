@@ -5,6 +5,7 @@ require_relative "command/horizontal_line"
 require_relative "command/unknown"
 require_relative "command/clear"
 require_relative "command/show"
+require_relative "command/fill"
 
 class Command
   attr_reader :line
@@ -24,7 +25,7 @@ class Command
   end
 
   def known?
-    line.start_with?("I", "C", "L", "V", "H", "S")
+    line.start_with?("I", "C", "L", "V", "H", "S", "F")
   end
 
   private
@@ -40,6 +41,7 @@ class Command
       "L" => "Color",
       "V" => "VerticalLine",
       "H" => "HorizontalLine",
+      "F" => "Fill",
       "S" => "Show"
     }
   end
