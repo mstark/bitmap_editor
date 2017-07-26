@@ -19,10 +19,29 @@ class Fill < Base
 
     raise("Given color is invalid! (in: #{line})") unless valid_color?
 
-    # bitmap.set_pixel_color(x: x, y: y, color: color)
+    fill_bitmap(x, y)
   end
 
   private
+
+  def fill_bitmap(next_x, next_y)
+    return unless valid_to_fill?(next_x, next_y)
+
+    bitmap.set_pixel_color(x: next_x, y: next_y, color: color)
+    # filling pixel around
+    fill_bitmap(next_x, next_y + 1)
+    fill_bitmap(next_x, next_y - 1)
+    fill_bitmap(next_x + 1, next_y)
+    fill_bitmap(next_x - 1, next_y)
+  end
+
+  def valid_to_fill?(next_x, next_y)
+    in_range_to_fill?(next_x, next_y) && !bitmap.any_color_at?(x: next_x, y: next_y)
+  end
+
+  def in_range_to_fill?(next_x, next_y)
+    (RANGE.min..bitmap.max_x).include?(next_x) && (RANGE.min..bitmap.max_y).include?(next_y)
+  end
 
   def in_range?
     RANGE.include?(x) && RANGE.include?(y)

@@ -56,6 +56,11 @@ class Bitmap
     dimensions.y
   end
 
+  def any_color_at?(x:, y:)
+    pos = [x, y].join("-")
+    colors.has_key?(pos)
+  end
+
   private
 
   def base_color_row

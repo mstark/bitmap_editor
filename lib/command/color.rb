@@ -11,7 +11,6 @@ class Color < Base
 
   def call
     matches
-
     unless in_bitmap_boundary?
       raise("Given values are not within in the bitmap! (in: #{line})")
     end
